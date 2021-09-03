@@ -38,12 +38,13 @@ COPY . .
 USER 0
 RUN dotnet publish "proj3-1app.csproj" -c Release 
 #-o /app/publish
-
-FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
-WORKDIR /app
-#COPY --from=publish /app/publish .
-RUN ls
 ENTRYPOINT ["proj3-1app.dll"]
+
+#FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
+#WORKDIR /app
+#COPY --from=publish /app/publish .
+#RUN ls
+#ENTRYPOINT ["proj3-1app.dll"]
 
 
 
