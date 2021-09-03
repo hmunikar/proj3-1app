@@ -40,7 +40,7 @@
 
 
 # syntax=docker/dockerfile:1
-FROM 172.30.1.1:5000/demoproj/dotnet:3.1-ubi8 AS build-env
+FROM registry.access.redhat.com/ubi8/dotnet-31/images/3.1-36 AS build-env
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
@@ -52,7 +52,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
-FROM 172.30.1.1:5000/demoproj/dotnet:3.1-ubi8
+FROM registry.access.redhat.com/ubi8/dotnet-31/images/3.1-36
 WORKDIR /app
 COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "proj3-1app.dll"]
