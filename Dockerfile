@@ -39,9 +39,7 @@ RUN dotnet build "proj3-1app.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "proj3-1app.csproj" -c Release -o /app/publish
 
-EXPOSE 8080
-
-FROM base
+FROM base as final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "proj3-1app.dll"]
