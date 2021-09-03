@@ -39,7 +39,7 @@ RUN dotnet build "proj3-1app.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "proj3-1app.csproj" -c Release -o /app/publish
 
-FROM base as final
+FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 as final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "proj3-1app.dll"]
