@@ -28,13 +28,6 @@ WORKDIR /app
 #EXPOSE 80
 #EXPOSE 443
 
-FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS build
-WORKDIR /src
-COPY ["proj3-1app.csproj", ""]
-RUN dotnet restore "./proj3-1app.csproj"
-COPY . .
-WORKDIR "/src/."
-RUN dotnet build "proj3-1app.csproj" -c Release -o /app/build
 
 FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS publish
 RUN dotnet publish "proj3-1app.csproj" -c Release -o /app/publish
