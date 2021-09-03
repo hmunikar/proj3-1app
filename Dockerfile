@@ -30,13 +30,13 @@ WORKDIR /app
 
 
 FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS publish
-RUN mkdir /app
-RUN mkdir /app/publish
-RUN dotnet publish "proj3-1app.csproj" -c Release -o /app/publish
+#RUN mkdir /app
+#RUN mkdir /app/publish
+RUN dotnet publish "proj3-1app.csproj" -c Release #-o /app/publish
 
 FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
-WORKDIR /app
-COPY --from=publish /app/publish .
+#WORKDIR /app
+#COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "proj3-1app.dll"]
 
 
