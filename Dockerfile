@@ -36,7 +36,7 @@ COPY . .
 WORKDIR "/src/."
 RUN dotnet build "proj3-1app.csproj" -c Release -o /app/build
 
-FROM build AS publish
+FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS publish
 RUN dotnet publish "proj3-1app.csproj" -c Release -o /app/publish
 
 FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
