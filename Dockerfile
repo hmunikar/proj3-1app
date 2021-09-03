@@ -31,6 +31,9 @@ COPY . .
 
 
 FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS publish
+WORKDIR /app
+COPY . .
+RUN ls
 #RUN mkdir /app
 #RUN mkdir /app/publish
 RUN dotnet publish "proj3-1app.csproj" -c Release 
