@@ -41,7 +41,7 @@ RUN dotnet publish "proj3-1app.csproj" -c Release -o /app/publish
 
 EXPOSE 8080
 
-FROM base AS final
+FROM base
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "proj3-1app.dll"]
