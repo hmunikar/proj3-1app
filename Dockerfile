@@ -33,7 +33,6 @@ COPY . .
 FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS publish
 WORKDIR /app
 COPY . .
-RUN ls
 #RUN mkdir /app
 #RUN mkdir /app/publish
 USER 0
@@ -43,6 +42,7 @@ RUN dotnet publish "proj3-1app.csproj" -c Release
 FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
 #WORKDIR /app
 #COPY --from=publish /app/publish .
+RUN ls
 ENTRYPOINT ["dotnet", "proj3-1app.dll"]
 
 
