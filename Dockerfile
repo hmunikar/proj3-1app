@@ -23,36 +23,46 @@
 
 
 
-#FROM demoproj/dotnet:3.1-ubi8
-#
-#RUN mkdir /app/proj3-1app
-#WORKDIR /app/proj3-1app
-#ADD . .
-#
-#RUN dotnet publish -c Release -o /app/proj3-1app/publish
-#
-#WORKDIR /app/proj3-1app/publish
-#
-#EXPOSE 8080
-#
-#ENTRYPOINT ["dotnet", "proj3-1app.dll"]
-
-
-
-# syntax=docker/dockerfile:1
-FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS build-env
+FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS base
 WORKDIR /app
+#EXPOSE 80
+#EXPOSE 443
 
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
-RUN dotnet restore
+FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS build
+WORKDIR /src
+COPY ["proj3-1app.csproj", ""]
+RUN dotnet restore "./proj3-1app.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "proj3-1app.csproj" -c Release -o /app/build
 
-# Copy everything else and build
-COPY . ./
-RUN dotnet publish -c Release -o out
+FROM build AS publish
+RUN dotnet publish "proj3-1app.csproj" -c Release -o /app/publish
 
-# Build runtime image
-FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
+EXPOSE 8080
+
+FROM base AS final
 WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "proj3-1app.dll"]
+
+
+
+
+## syntax=docker/dockerfile:1
+#FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS build-env
+#WORKDIR /app
+
+## Copy csproj and restore as distinct layers
+#COPY *.csproj ./
+#RUN dotnet restore
+
+## Copy everything else and build
+#COPY . ./
+#RUN dotnet publish -c Release -o out
+
+## Build runtime image
+#FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
+#WORKDIR /app
+#COPY --from=build-env /app/out .
+#ENTRYPOINT ["dotnet", "proj3-1app.dll"]
