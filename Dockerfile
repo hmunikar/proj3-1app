@@ -41,9 +41,9 @@ RUN ls /app/bin
 #-o /app/publish
 
 
-FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
-WORKDIR /app/bin/Release/netcoreapp3.1
-ENTRYPOINT ["proj3-1app.dll"]
+#FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
+#WORKDIR /app/bin/Release/netcoreapp3.1
+#ENTRYPOINT ["proj3-1app.dll"]
 #WORKDIR /app
 #COPY --from=publish /app/publish .
 #RUN ls
