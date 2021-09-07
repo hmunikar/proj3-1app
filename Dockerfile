@@ -6,6 +6,6 @@ COPY . .
 #RUN mkdir /app
 #RUN mkdir /app/publish
 USER 0
-RUN dotnet publish "proj3-1app.csproj" -c Release .
+RUN dotnet publish "proj3-1app.csproj" -c Release -o .
 ENTRYPOINT ["dotnet", "proj3-1app.dll"]
 
