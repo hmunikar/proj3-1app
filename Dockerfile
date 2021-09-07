@@ -39,6 +39,7 @@ USER 0
 RUN dotnet publish "proj3-1app.csproj" -c Release 
 RUN ls /app/bin
 #-o /app/publish
+COPY /app/bin/Release/netcoreapp3.1/publish .
 ENTRYPOINT ["proj3-1app.dll"]
 
 #FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
