@@ -37,6 +37,7 @@ COPY . .
 #RUN mkdir /app/publish
 USER 0
 RUN dotnet publish "proj3-1app.csproj" -c Release 
+RUN ls
 #-o /app/publish
 
 
