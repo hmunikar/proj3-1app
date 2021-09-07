@@ -41,6 +41,7 @@ RUN dotnet publish "proj3-1app.csproj" -c Release
 
 
 FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
+WORKDIR /app
 ENTRYPOINT ["proj3-1app.dll"]
 #WORKDIR /app
 #COPY --from=publish /app/publish .
