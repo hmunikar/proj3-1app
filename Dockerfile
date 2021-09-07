@@ -13,5 +13,5 @@ RUN ls /app/bin
 FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
 WORKDIR /app
 COPY --from=build /app/bin/Release/netcoreapp3.1/publish .
-ENTRYPOINT ["proj3-1app.dll"]
+ENTRYPOINT ["dotnet", "proj3-1app.dll"]
 
