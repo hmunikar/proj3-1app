@@ -1,6 +1,6 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS Build
+FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS build
 WORKDIR /app
 COPY . .
 #RUN mkdir /app
@@ -10,7 +10,7 @@ RUN dotnet publish "proj3-1app.csproj" -c Release
 RUN ls /app/bin
 #-o /app/publish
 
-FROM Build
-COPY /app/bin/Release/netcoreapp3.1/publish .
+FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
+COPY --from=build /app/bin/Release/netcoreapp3.1/publish .
 ENTRYPOINT ["proj3-1app.dll"]
 
