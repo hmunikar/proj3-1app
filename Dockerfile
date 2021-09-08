@@ -4,12 +4,6 @@ FROM registry.access.redhat.com/ubi8/dotnet-31:3.1 AS build-env
 WORKDIR /app
 COPY . .
 USER 0
-RUN dotnet publish "proj3-1app.csproj" -c Release
-
-EXPOSE 8080
-
-FROM registry.access.redhat.com/ubi8/dotnet-31:3.1
-WORKDIR /app
-COPY --from=build-env /app/bin/Release/netcoreapp3.1/publish .
+RUN dotnet publish "proj3-1app.csproj" -c Release -o .
 ENTRYPOINT ["dotnet", "proj3-1app.dll"]
 
